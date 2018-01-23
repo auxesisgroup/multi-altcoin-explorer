@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/static/images/favicon.ico">
+    <link href="/static/css/main.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+</head>
+<body>
+<div class="wrapper" id="main_container">
+    {% include 'search.html' %}
+    <div class="loading" style="display:none" id="loading"><img src="/static/gif/default.gif"
+                                                                style="width:60%;height: 60%; padding-left: 30%"/></div>
+    <div class="navigation">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="/"><img
+                            src="/static/images/auxledger_explorer_380x100_left_align.png" width="150px;" alt=""></a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="main_container">
+        <div class="container">
+            <h2>TRANSACTION <span style="font-size:18px;">View information about a transaction</span></h2>
+            <a class="hash-link"
+               href="/explorer/get_transaction_info/{{ context.txid }}">{{
+                context.txid }}</a>
+
+            {% if 'no_data' in context %}
+            <h2 class="text-center">No such Transaction</h2>
+            {% else %}
+            <div class="row">
+                {% if 'coinbase' not in context %}
+                <div class="col-md-6">
+                    {% else %}
+                    <div class="col-md-12">
+                        {% endif %}
+                        <section class="panel">
+                            <div class="panel-body">
+                                <section id="no-more-tables3">
+                                    <table class="table table-striped cf ticket_table">
+                                        <thead class="cf">
+                                        <tr>
+                                            <th colspan="2">Summary</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!--<tr>-->
+                                        <!--<td data-title="Summary">Size</td>-->
+                                        <!--<td data-title="">{{ context.size }}</td>-->
+                                        <!--</tr>-->
+                                        <tr>
+                                            <td data-title="">Received</td>
+                                            <td data-title="">{{ context.block_time }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-title="">Included In Blocks</td>
+                                            <td data-title=""><a href="/explorer/get_block_info/{{context.blockhash}}">{{
+                                                context.blockhash }}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td data-title="">Confirmations</td>
+                                            <td data-title="">{{ context.confirmations }} Confirmations</td>
+                                        </tr>
+                                        <!--<tr>-->
+                                        <!--<td data-title="">Relayed by IP </td>-->
+                                        <!--<td data-title=""><a href="#">Blockchain.info</a></td>-->
+                                        <!--</tr>-->
+                                        <!--<tr>-->
+                                        <!--<td data-title="">Visualize</td>-->
+                                        <!--<td data-title=""><a href="#">View Tree Chart</a></td>-->
+                                        <!--</tr>-->
+                                        </tbody>
+                                    </table>
+                                </section>
+                            </div>
+                        </section>
+                    </div>
+                    {% if 'coinbase' not in context %}
+                    <div class="col-md-6">
+                        <section class="panel">
+                            <div class="panel-body">
+                                <section id="no-more-tables2">
+                                    <table class="table table-striped cf ticket_table">
+                                        <thead class="cf">
+                                        <tr>
+                                            <th colspan="2">Inputs and Outputs</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td data-title="Inputs and Outputs">Number of Inputs</td>
+                                            <td data-title="">{{ context.total_inputs_count }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-title="">Number of Outputs</td>
+                                            <td data-title="">{{ context.total_outputs_count }}</td>
+                                        </tr>
+                                        <!--<tr>-->
+                                        <!--<td data-title="">Fees</td>-->
+                                        <!--<td data-title="">{{ context.fee }} BTC</td>-->
+                                        <!--</tr>-->
+                                        <!--<tr>-->
+                                        <!--<td data-title="">Fee per byte</td>-->
+                                        <!--<td data-title="">{{ context.fee_per_byte }} sat/B</td>-->
+                                        <!--</tr>-->
+                                        <!--<tr>-->
+                                        <!--<td data-title="">Estimated BTC Transacted</td>-->
+                                        <!--<td data-title="">10 BTC</td>-->
+                                        <!--</tr>-->
+                                        <!--<tr>-->
+                                        <!--<td data-title="">Scripts</td>-->
+                                        <!--<td data-title=""><a href="#">Show scripts &amp; coinbase</a></td>-->
+                                        <!--</tr>-->
+                                        </tbody>
+                                    </table>
+                                </section>
+                            </div>
+                        </section>
+                    </div>
+                    {% endif %}
+                </div>
+
+
+                <section class="panel">
+                    <div class="panel-body">
+                        <section id="no-more-tables">
+                            <!--<table class="table table-striped cf ticket_table transaction_table">-->
+                            <!--<tbody>-->
+
+                            {% if 'coinbase' in context %}
+                            <!--<tr>-->
+                            <h5>No inputs(Newly generated coins)</h5>
+                            <!--</tr>-->
+
+                            <!--</div>-->
+                            {% else %}
+
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <table class="table table-striped cf ticket_table transaction_table">
+                                        {% for input_address in context.vin_address %}
+                                        <tr>
+                                            <td><a href="/explorer/get_address_info/{{ input_address }}">{{
+                                                input_address
+                                                }}</a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                <div class="col-sm-2">
+                                    <td width="48px" data-title=""><img src="/static/images/arrow_right_green.png"></td>
+                                </div>
+                                <div class="col-sm-5">
+                                    <table class="table table-striped cf ticket_table transaction_table">
+                                        {% for output_address in context.vout_address %}
+                                        <tr>
+                                            <td><a href="/explorer/get_address_info/{{ output_address }}">{{
+                                                output_address
+                                                }}</a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+
+                        </section>
+                    </div>
+                </section>
+                <div class="clearfix"></div>
+
+            </div>
+            {% endif %}
+        </div>
+        <div id="data_container" style="display: none"></div>
+
+    </div>
+    {% endif %}
+    <!-- Small modal -->
+</div>
+</body>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/static/js/jquery-1.11.3.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    function isPositiveInteger(n) {
+        return 0 === n % (!isNaN(parseFloat(n)) && 0 <= ~~n);
+    }
+    $(document).ready(function () {
+        document.title = '{{context.txid}} | Transaction | Auxledger';
+        $(document).ajaxStart(function () {
+            $("#loading").show();
+        }).ajaxStop(function () {
+            $("#loading").hide();
+        });
+
+        $("#user_input").on("keydown", function search(e) {
+            console.log('aaa');
+            if (e.keyCode == 13) {
+//                alert('aa');
+                var user_input = $(this).val();
+                var block_flag = false;
+                console.log('uuu' + user_input);
+                if (user_input.length == 64) {
+                    for (var i = 0; i < 7; i++) {
+                        console.log('iii' + user_input[i]);
+                        if (user_input[i] == '0') {
+                            block_flag = true;
+                        }
+                        else {
+                            block_flag = false;
+                            break;
+                        }
+                    }
+                    if (block_flag == true) {
+                        var url = '/explorer/get_block_info/' + user_input;
+                        console.log('redirecting to::', url);
+                        $('#search_form').attr('action', url).submit();
+                    }
+                    else {
+                        var url = '/explorer/get_transaction_info/' + user_input;
+                        $('#search_form').attr('action', url).submit();
+                    }
+
+                }
+                else if (user_input.length == 38 || user_input.length === 34) {
+                    var url = '/explorer/get_address_info/' + user_input;
+                    $('#search_form').attr('action', url).submit();
+                }
+
+                else {
+                    if (isPositiveInteger(user_input) == true) {
+                        var url = '/explorer/get_block_hash/' + user_input;
+                        $('#search_form').attr('action', url).submit();
+                    }
+                    else {
+                        $("#panel-danger").css('display', 'block');
+                    }
+                }
+            }
+        });
+    });
+</script>
+</html>

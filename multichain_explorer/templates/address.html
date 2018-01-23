@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/main.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/static/images/favicon.ico">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+</head>
+<body>
+<div class="wrapper" id="main_container">
+    {% include 'search.html' %}
+    <div class="loading" style="display:none" id="loading"><img src="/static/gif/default.gif"
+                                                                style="width:60%;height: 60%; padding-left: 30%"/></div>
+
+    <!--<div class="top_bar">-->
+    <!--<div class="container-fluid">-->
+    <!--<ul class="list-inline pull-right clearfix">-->
+    <!--<li><a href="#">Logout</a></li>-->
+    <!--</ul>-->
+</div>
+<!--</div>-->
+<div class="navigation">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img
+                        src="/static/images/auxledger_explorer_380x100_left_align.png" width="150px;" alt=""></a></div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <!--<ul class="nav navbar-nav navbar-right">-->
+                <!--<li><a href="index.html">Home</a></li>-->
+                <!--<li><a href="reserve.html">Reserve</a></li>-->
+                <!--<li class="active"><a href="payment.html">Payment</a></li>-->
+                <!--<li><a href="#">Developer</a></li>-->
+                <!--</ul>-->
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </nav>
+</div>
+{% if 'no_data' in context %}
+<div class="text-center">
+    <br><br><br><h2>No such Address.</h2>
+</div>
+{% else %}
+<div class="main_container">
+    <div class="container">
+        <h2>Address <span style="font-size:18px;">Addresses are identifiers.</span></h2>
+
+        <div class="row">
+            <div class="col-md-5">
+                <section class="panel">
+                    <div class="panel-body">
+                        <section id="no-more-tables3">
+                            <table class="table table-striped cf ticket_table">
+                                <thead class="cf">
+                                <tr>
+                                    <th colspan="2">Summary</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td data-title="Summary">Address</td>
+                                    <td data-title=""><a href="/explorer/get_address_info/{{ context.address }}">{{
+                                        context.address }}</a></td>
+                                </tr>
+                                <!--<tr>-->
+                                <!--<td data-title="">Hash 160</td>-->
+                                <!--<td data-title=""><a href="#">b125e4dfc785f0979ef0babd3377436630772733</a> </td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                <!--<td data-title="">Tools</td>-->
+                                <!--<td data-title=""><a href="#">Related Tags</a>- <a href="#">Unspent Outputs</a></td>-->
+                                <!--</tr>                  -->
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section class="panel">
+                    <div class="panel-body">
+                        <section id="no-more-tables2">
+                            <table class="table table-striped cf ticket_table">
+                                <thead class="cf">
+                                <tr>
+                                    <th colspan="2">Transactions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td data-title="Transactions">No. Transactions</td>
+                                    <td data-title="">{{ context.transactions_count }}</td>
+                                </tr>
+                                <tr>
+                                    <td data-title="">Total Received</td>
+                                    <td data-title="">{{ context.total_output }}</td>
+                                </tr>
+                                <tr>
+                                    <td data-title="">Final Balance</td>
+                                    <td data-title="">{{ context.balance }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--<button class="btn btn-default" id="create-payment-request">Request Payment</button>-->
+                            <!--<button class="btn btn-default" id="create-donation-button">Donation Button</button> -->
+                        </section>
+                    </div>
+                </section>
+            </div>
+            <!--<div class="col-md-3">-->
+                <!--<img src="/static/images/qr.png" alt="">-->
+            <!--</div>-->
+
+        </div>
+        <div class="clearfix"></div>
+        <h2>Transactions</h2>
+        {% for transaction in context.transaction_list_to_send %}
+        <!--<a href="/explorer/get_transaction_info/{{ transaction }}">{{ transaction }}</a><br>-->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-11">
+                    <a href="/explorer/get_transaction_info/{{ transaction }}">{{ transaction }}</a><br>
+                </div>
+                <div class="col-sm-1">
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle" onclick="get_transaction_info('{{ transaction }}')"
+                                id="get_transation_info_btn_{{ transaction }}">
+                            <!--Action-->
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <!-- dropdown menu links -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                <!--<div id='transaction_info_div_{{ transaction }}'>-->
+                <table id="input_addresses_{{transaction}}" class="table" style="background: #ffffff">
+
+                </table>
+                <!--</div>-->
+            </div>
+            <div class="col-sm-2">
+                <img src="/static/images/arrow_right_green.png" id="green_arrow_image_{{transaction}}"
+                     style="display: none">
+            </div>
+            <div class="col-sm-5">
+                <table id="output_addresses_{{transaction}}" class="table" style="background: #ffffff">
+
+                </table>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endif %}
+<div id="data_container" style="display: none"></div>
+
+</div>
+
+<!-- Small modal -->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/static/js/jquery-1.11.3.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/static/js/bootstrap.min.js"></script>
+</body>
+<script type="text/javascript">
+    function isPositiveInteger(n) {
+        return 0 === n % (!isNaN(parseFloat(n)) && 0 <= ~~n);
+    }
+    $(document).ready(function () {
+        document.title = '{{context.address}} | Address | Auxledger';
+        $(document).ajaxStart(function () {
+            $("#loading").show();
+        }).ajaxStop(function () {
+            $("#loading").hide();
+        });
+
+        $("#user_input").on("keydown", function search(e) {
+            console.log('aaa');
+            if (e.keyCode == 13) {
+//                alert('aa');
+                var user_input = $(this).val();
+                var block_flag = false;
+                console.log('uuu' + user_input);
+                if (user_input.length == 64) {
+                    for (var i = 0; i < 7; i++) {
+                        console.log('iii' + user_input[i]);
+                        if (user_input[i] == '0') {
+                            block_flag = true;
+                        }
+                        else {
+                            block_flag = false;
+                            break;
+                        }
+                    }
+                    if (block_flag == true) {
+                        var url = '/explorer/get_block_info/' + user_input;
+                        console.log('redirecting to::', url);
+                        $('#search_form').attr('action', url).submit();
+                    }
+                    else {
+                        var url = '/explorer/get_transaction_info/' + user_input;
+                        $('#search_form').attr('action', url).submit();
+                    }
+
+                }
+                else if (user_input.length == 38 || user_input.length === 34) {
+                    var url = '/explorer/get_address_info/' + user_input;
+                    $('#search_form').attr('action', url).submit();
+                }
+
+                else {
+                    if (isPositiveInteger(user_input) == true) {
+                        var url = '/explorer/get_block_hash/' + user_input;
+                        $('#search_form').attr('action', url).submit();
+                    }
+                    else {
+                        $("#panel-danger").css('display', 'block');
+                    }
+                }
+            }
+        });
+    });
+
+    function get_transaction_info(txid) {
+        var url = '/explorer/api_get_transaction_info/' + txid;
+        $.get(url, {}, function (result) {
+            var btn_id = '#get_transation_info_btn_' + txid;
+            var div_id = '#transaction_info_div_' + txid;
+            var input_address_div_id = '#input_addresses_' + txid;
+            var output_address_div_id = '#output_addresses_' + txid;
+            var green_arrow_image_id = '#green_arrow_image_' + txid;
+            $(btn_id).css('display', 'none');
+            $(div_id).text(result);
+            var vins = result['vin_address'];
+            var vin_values = result['vin_inputs'];
+            var vouts = result['vout_address'];
+            var vout_values = result['vout_outputs'];
+            if (vins.length == 0) {
+                $(input_address_div_id).append('<tr><td>Newly generated coins.</td></tr>');
+            }
+            else {
+                for (var i = 0; i < vins.length; i++) {
+                    console.log('input address:::', i, vins[i]);
+                    $(input_address_div_id).append('<tr><td>' + vins[i] + '</td><td>' + vin_values[i] + '</td></tr>');
+                }
+            }
+            $(green_arrow_image_id).css('display', 'block');
+            for (var i = 0; i < vouts.length; i++) {
+                console.log('output address:::', i, vouts[i]);
+                $(output_address_div_id).append('<tr><td>' + vouts[i] + '</td><td>' + vout_values[i] + '</td></tr>');
+            }
+//            for(var i=0;i<)
+        });
+    }
+</script>
+</html>

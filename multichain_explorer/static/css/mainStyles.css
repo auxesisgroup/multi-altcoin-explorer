@@ -1,0 +1,437 @@
+
+html{
+  height: 100%;
+}
+
+
+body{
+  overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
+  height: 100%;
+}
+
+/*Custom Fonts RED RED RED RED */
+
+@font-face {
+  font-family: 'MontserratBold';
+  src: url('../fonts/Montserrat-Bold.ttf') format('truetype');
+  /* Safari, Android, iOS */
+}
+
+.montBold {
+  font-family: 'MontserratBold';
+}
+
+@font-face {
+  font-family: 'MontserratRegular';
+  src: url('../fonts/Montserrat-Regular.ttf') format('truetype');
+  /* Safari, Android, iOS */
+}
+
+.montRegular {
+  font-family: 'MontserratRegular';
+}
+
+
+/*Custom Fonts END RED RED RED RED */
+
+/*################### PAdding and Margin Styles Start###################*/
+
+.nopad{
+  padding: 0px;
+}
+
+.noMarg{
+  margin: 0px;
+}
+
+.padTopBot5{
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+.noMargBot{
+  margin-bottom: 0px;
+}
+
+.noPadTopBot{
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+.noPadLeftRight{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.padLR5{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.padLR15{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.padRightOnly{
+  padding: 0px 10px 0px 0px;
+}
+
+.padTb3Lr15{
+  padding: 3px 15px;
+}
+
+.padTopBot10{
+  padding-top: 10px;
+  padding-top: 10px;
+}
+
+/*################### PAdding and Margin Styles End#####################*/
+
+
+/*################### Text Styles Start###################*/
+
+.colorWhite {
+  color: #fff;
+}
+
+.font25{
+  font-size: 25px;
+}
+
+/*################### Text Styles End#####################*/
+
+.navShadow{
+  -webkit-box-shadow: 0px 5px 15px -3px rgba(0,0,0,0.3);
+-moz-box-shadow: 0px 5px 15px -3px rgba(0,0,0,0.3);
+box-shadow: 0px 5px 15px -3px rgba(0,0,0,0.3);
+}
+
+
+/*################### Navbar Styles Start#################*/
+.navbar {
+  border-radius: 0px;
+  height: 60px;
+  border: none;
+}
+
+.navbar-default {
+  background-color: #fff;
+}
+
+.navbar-collapse {
+  background-color: #fff;
+}
+
+.navbar-default .navbar-nav>.active>a {
+  background-color: transparent;
+  color: #5BC0DE;
+}
+
+.navbar-default .navbar-nav>.active>a:hover {
+  background-color: transparent;
+  color: #A3DAF7;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+  color: #337AB7;
+  background-color: none;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #000;
+  font-weight: 500;
+  font-size: 16px;
+  font-family: 'MontserratRegular';
+}
+
+.navbar-nav>li>a {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 5px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.navbar-header {
+  height: 60px;
+}
+
+.navbar-toggle{
+  position: relative;
+  float: right;
+  border-radius: 0px;
+  margin-top: 13px;
+  margin-right: 20px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none;
+}
+
+
+/*################### Navbar Styles End###################*/
+
+
+/*################### Custom Form Styles Start Green #################*/
+.custInput{
+  height: 40px;
+  border-radius: 0px;
+}
+
+.custBtnAnchor{
+  letter-spacing: 1px;
+    padding: 10px;
+}
+
+.sendCustInput{
+  height: 40px;
+  border-radius: 0px;
+}
+
+.input{
+  border: none;
+}
+
+/*################### Custom Form Styles End Red #################*/
+
+/*###################Intro Section Start#################*/
+
+#intro {
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/bitcoin-2007769_1920.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: auto;
+  position: relative;
+  padding: 50px 10px;
+}
+
+.intro_txt_div {
+  padding: 80px 5px 0px 5px;
+}
+
+.intro_txt {
+  color: #fff;
+  font-size: 40pt;
+  font-family: 'MontserratBold';
+}
+
+.stats_div_wrap {
+  padding: 20px 10px;
+}
+
+.stats_div {
+  padding: 15px 5px;
+  font-family: 'MontserratBold';
+}
+
+.stats_div h3{
+    font-size: 30px;
+}
+
+#buttons_wrap {
+  padding: 25px 0px 5px 0px;
+}
+
+/*###################Intro Section End###################*/
+
+
+
+.modalOTP {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+
+.modal-content{
+  /*border-radius: 0px;*/
+}
+
+.modal.in .modal-dialog {
+    top: 20%;
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    -o-transform: translate(0,0);
+    transform: translate(0,0);
+}
+
+.modal-header {
+    padding: 40px 15px 20px 15px;
+    text-align: center;
+    border-bottom: none;
+}
+
+.modal-close-cust{
+    position: absolute;
+    z-index: 10;
+    top: -10px;
+    right: 0;
+
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+
+    opacity: 0.6 !important;
+    color: #fff !important;
+    border-radius: 50%;
+    background-color: #000 !important;
+
+    line-height: 15px;
+}
+
+.modal-close-cust:hover{
+    opacity: 1 !important;
+}
+
+.modal-footer{
+  margin-top: 10%;
+  border: none;
+}
+
+.alert{
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+/*###################Dashboard Styles###################*/
+#topbar{
+  padding: 80px 0px 25px 0px;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+.welcome{
+  background-color: pink;
+}
+
+.welcome_wrap{
+  color:#5F5F5F
+}
+
+#QRCode{
+  height: 150px;
+  padding: 5px;
+}
+
+.modFooot-cust{
+  padding: 10px;
+}
+
+
+
+/*######################### INDEX page media queries start ###################*/
+/*Iphone 4 adn 5*/
+@media only screen and (min-device-width: 320px) and (max-device-width: 325px){
+    
+  .intro_txt{
+    font-size: 24px;
+  }
+  
+  .stats_div h2{
+    font-size: 20px !important;
+    margin: 0px;
+  }
+  
+  .sendCustInput{
+    margin-bottom: 10px;
+  }
+  
+  .otpResend{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .modFooot-cust{
+    margin-top: 15%;
+  }
+}
+
+/*Rest Mobiles*/
+@media only screen  and (min-device-width: 330px)  and (max-device-width: 500px){
+  
+  #intro{
+    height: 100%;
+    padding: 10px;
+  }
+  
+  .intro_txt{
+    font-size: 28px;
+  }
+  
+  .stats_div h2{
+    font-size: 24px !important;
+    margin: 0px;
+  }
+  
+  .sendCustInput{
+    margin-bottom: 10px;
+  }
+  
+  .otpResend{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .modFooot-cust{
+    margin-top: 35%;
+  }
+}
+
+
+
+
+/*Ipad*/
+@media only screen and (min-device-width: 765px) and (max-device-width: 1030px){
+  #intro{
+    height: 100%;
+    padding-top: 15%;
+  }
+  
+  .intro_txt{
+    font-size: 40px;
+  }
+  
+  
+}
+
+
+/*rest laptops*/
+@media screen and (min-device-width: 1200px) and (max-device-width: 1500px){ 
+  #intro{
+    height: 100%;
+    padding-top: 5%;
+  }
+}
+/*######################### INDEX page media queries end ###################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

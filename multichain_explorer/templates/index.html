@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Enterprise Blockchain Platform | Auxledger Explorer</title>
+    <meta name="google-site-verification" content="DO6R_eljOMIpQPdie04mszRErC4pIfbjH0NwKKDqdM0" />
+    <meta name="description" content="Blockchain explorer for accessing transactions and block information of open enterprise platform Auxledger developed by Auxesis Group" />
+    <link rel="icon" type="image/png" href="/static/images/favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+            background-color: #20AEED;
+        }
+
+        body {
+            /*            background-color: #F2F2F2;*/
+        }
+
+        .nav_custom {
+            background-color: #fff;
+            height: 70px;
+            /*            padding: 10px 0px;*/
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .shadow {
+            -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+            box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+        }
+
+        .col-centered {
+            float: none;
+            margin: 10px auto;
+        }
+
+        .cust_input {
+            height: 50px;
+            border-radius: 0px;
+            border-color: #20AEED;
+        }
+
+        .btn-default:hover {
+            border-color: #20AEED;
+        }
+
+        .serch_btn:hover {
+            background-color: #20AEED;
+            color: #fff;
+            border-bottom-color: #20AEED;
+        }
+
+        .search_sec {
+            padding: 2% 2% 1.5% 2%;
+            z-index: 100 !important;
+            background-color: #fff;
+        }
+
+        .hint {
+            padding: 10px 0px;
+            margin-bottom: 0;
+            color: #000;
+        }
+
+        .tag {
+            font-size: 12px;
+            padding: 5px 10px;
+            color: #fff;
+            font-weight: 700;
+            border-radius: 3px;
+        }
+
+        .green {
+            background-color: #5CB85C;
+        }
+
+        .table_div {
+            background-color: #fff;
+            border-radius: 3px;
+            margin: 10px 0px;
+            padding: 10px 15px;
+        }
+
+        .blue {
+            background-color: #337AB7;
+        }
+
+        .grey {
+            background-color: #777777;
+        }
+
+        .pink {
+            background-color: #F48FB1;
+        }
+
+        .lightGreen {
+            background-color: #8BC34A;
+        }
+
+        .auxBlue {
+            background-color: #20AEED;
+        }
+
+        .darkGreen {
+            background-color: #2E7D32;
+        }
+
+        .cyan {
+            background-color: #5BC0DE;
+        }
+
+        .tables {
+            padding-top: 20px;
+            background-color: #20AEED;
+        }
+
+        footer {
+            padding: 10px 15px;
+            background-color: #20AEED;
+            margin-bottom: 0;
+            color: #fff;
+        }
+
+        footer p {
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+<form style="display: none" id="search_form" method="get"></form>
+<section class="search_sec shadow">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <img src="/static/images/auxledger_explorer_380x100_left_align.png" class="img-responsive" alt="">
+            </div>
+            <div class="col-sm-8 col-md-5 col-centered">
+                <!--                  <p class="help-block hint">Search by address, block number or hash, transaction or chain name:</p>-->
+                <div class="input-group shadow">
+                    <input type="text" class="form-control cust_input" id="user_input"
+                           placeholder="Search by address, block number or hash, transaction or chain name">
+                        <span class="input-group-btn cust_input">
+                            <button class="btn btn-default cust_input serch_btn" type="button" style="width:50px;">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                </div>
+                <small class="help-block hint">Search by address, transaction ID, block number or hash.</small>
+                <!-- /input-group -->
+            </div>
+        </div>
+    </div>
+</section>
+<section class="tables">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 table_div shadow table-responsive" style="overflow-x:auto;">
+                <table class="table table-hover table-responsive" style="margin-bottom:0px;overflow-x:auto;">
+                    <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Blocks</th>
+                        <!--<th>Transactions</th>-->
+                        <th>Assets</th>
+                        <!--<th>Addresses</th>-->
+                        <th>Streams</th>
+                        <!--<th>Age</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><span class="tag green">Connected</span></td>
+                        <td id="block_count">{{ context.block_count }}</td>
+                        <!--<td>1000</td>-->
+                        <td>{{ context.assets_count }}</td>
+                        <!--<td>93</td>-->
+                        <td>{{ context.stream_count }}</td>
+                        <!--<td>1 Day</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--<center>-->
+        <div class="loading col-centered" style="display:none;width: 55px;margin: 0 auto;" id="loading"><img
+                src="/static/gif/default.gif"
+                style="width:50px;height: 50px;"/>
+        </div>
+        <!--</center>-->
+        <!--     ########## Transaction Table ##########     -->
+        <div class="row">
+            <div class="col-sm-12 table_div shadow table-responsive" style="overflow-x:auto;">
+                <table class="table table-hover table-responsive" id="latest_transactions_table"
+                       style="margin-bottom:0px;overflow-x:auto;">
+                    <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Type</th>
+                        <th>Confirmation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--<tr>-->
+                    <!--<td colspan="1"><a href="#">a0d01a333a8f4c5311ae5c7a8600d0cc20a60c9a0bb6622f30f41dc88869ae57</a></td>-->
+                    <!--<td><span class="tag blue">Asset</span></td>-->
+                    <!--<td><span class="tag cyan">1 Confirmations</span></td>-->
+                    <!--</tr>-->
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</section>
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <p><i>powered by <a href="https://auxesisgroup.com" target="_blank">Auxesis</a></i></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+    function isPositiveInteger(n) {
+        return 0 === n % (!isNaN(parseFloat(n)) && 0 <= ~~n);
+    }
+    var activeAjaxCount = 0;
+    $(document).ready(function () {
+//        $(document).ajaxStart(function () {
+//            activeAjaxCount++;
+//            console.log('aaaaaaaaaaaaa:',activeAjaxCount);
+//            if(activeAjaxCount ==1){
+        $("#loading").show();
+//            }
+//        }).ajaxStop(function () {
+//            activeAjaxCount--;
+//            $("#loading").hide();
+//        });
+
+        function latest_transactions() {
+            $.get('/explorer/get_latest_transactions/', {}, function (result) {
+                $('#latest_transactions_table tbody').empty();
+                console.log('latest_transactions_result:::', result, typeof result, result.length);
+                var jsonData = JSON.parse(result);
+                console.log('jjjj', jsonData[0]);
+                $('#block_count').empty().text(jsonData[0]['current_block_count']);
+                for (var counter in jsonData) {
+                    console.log('cttttcc', jsonData[counter]['transaction']);
+                    var transaction = jsonData[counter]['transaction'];
+                    var confirmations = jsonData[counter]['confirmations'];
+                    var types = jsonData[counter]['types'];
+                    console.log('tytytytyt::::::::', types);
+                    var transaction_link = '/explorer/get_transaction_info/' + transaction;
+                    var confirmations_strart_span = '';
+                    var confirmations_end_span = '';
+                    if (confirmations == 'Mempool') {
+                        confirmations_strart_span = '<span class="tag grey">';
+                        confirmations_end_span = '</span>';
+                    }
+                    else if (confirmations == '1') {
+                        confirmations_strart_span = '<span class="tag cyan">';
+                        confirmations_end_span = ' Confirmation</span>'
+                    }
+                    else {
+                        confirmations_strart_span = '<span class="tag cyan">';
+                        confirmations_end_span = ' Confirmations</span>'
+                    }
+                    $('#latest_transactions_table tbody').append('<tr><td colspan="1"><a href="' +
+                            transaction_link + '">' + transaction + '</a></td><td><span class="tag blue">'
+                            + types + '</span></td><td>' + confirmations_strart_span + confirmations +
+                            confirmations_end_span + '</td></tr>');
+                }
+            });
+        }
+
+//        latest_transactions();
+        $("#user_input").on("keydown", function search(e) {
+            console.log('aaa');
+            if (e.keyCode == 13) {
+//                alert('aa');
+                var user_input = $(this).val();
+                var block_flag = false;
+                console.log('uuu' + user_input);
+                if (user_input.length == 64) {
+                    for (var i = 0; i < 2; i++) {
+                        console.log('iii' + user_input[i]);
+                        if (user_input[i] == '0') {
+                            block_flag = true;
+                        }
+                        else {
+                            block_flag = false;
+                            break;
+                        }
+                    }
+                    if (block_flag == true) {
+                        var url = '/explorer/get_block_info/' + user_input;
+                        console.log('redirecting to::', url);
+                        $('#search_form').attr('action', url).submit();
+                    }
+                    else {
+                        var url = '/explorer/get_transaction_info/' + user_input;
+                        console.log('ttttransaction:::', url);
+                        $('#search_form').attr('action', url).submit();
+                    }
+
+                }
+                else if (user_input.length == 38 || user_input.length === 34) {
+                    var url = '/explorer/get_address_info/' + user_input;
+                    $('#search_form').attr('action', url).submit();
+                }
+
+                else {
+                    if (isPositiveInteger(user_input) == true) {
+                        var url = '/explorer/get_block_hash/' + user_input;
+                        $('#search_form').attr('action', url).submit();
+                    }
+                    else {
+                        $("#panel-danger").css('display', 'block');
+                    }
+                }
+            }
+        });
+        get_latest_transactions();
+    });
+    function get_latest_transactions() {
+        $.get('/explorer/get_latest_transactions/', {}, function (result) {
+            console.log('aaaaccccc', activeAjaxCount);
+            activeAjaxCount++;
+            if (activeAjaxCount >= 1) {
+                $("#loading").hide();
+            }
+
+            $('#latest_transactions_table tbody').empty();
+            var jsonData = JSON.parse(result);
+            $('#block_count').empty().text(jsonData[0]['current_block_count']);
+            for (var counter in jsonData) {
+                console.log('cttttcc', jsonData[counter]['transaction']);
+                var transaction = jsonData[counter]['transaction'];
+                var confirmations = jsonData[counter]['confirmations'];
+                var types = jsonData[counter]['types'];
+                var transaction_link = '/explorer/get_transaction_info/' + transaction;
+                var confirmations_strart_span = '';
+                var confirmations_end_span = '';
+                if (confirmations == 'Mempool') {
+                    confirmations_strart_span = '<span class="tag grey">';
+                    confirmations_end_span = '</span>';
+                }
+                else if (confirmations <= '4') {
+                    confirmations_strart_span = '<span class="tag auxBlue">';
+                    confirmations_end_span = ' Confirmation</span>'
+                }
+                else {
+                    confirmations_strart_span = '<span class="tag darkGreen">';
+                    confirmations_end_span = ' Confirmations</span>'
+                }
+                $('#latest_transactions_table tbody').append('<tr><td colspan="1"><a href="' +
+                        transaction_link + '">' + transaction + '</a></td><td><span class="tag blue">'
+                        + types + '</span></td><td>' + confirmations_strart_span + confirmations +
+                        confirmations_end_span + '</td></tr>');
+            }
+        });
+        setTimeout("get_latest_transactions()", 3000);
+    }
+</script>
+</body>
+
+</html>

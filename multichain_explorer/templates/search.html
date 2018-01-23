@@ -1,0 +1,95 @@
+<div class="top_bar">
+        <div class="container-fluid">
+            <ul class="list-inline pull-right clearfix">
+                <li><input type="text" class="form-control" id="user_input" name="user_input"
+                           placeholder="Search.."></li>
+            </ul>
+    </div>
+</div>
+<form style="display: none" id="search_form" method="get"></form>
+<!--<script type="application/javascript">-->
+<!--$("#user_input").on("keydown", function search(e) {-->
+
+            <!--if (e.keyCode == 13) {-->
+                <!--alert('aa');-->
+                <!--var user_input = $(this).val();-->
+                <!--var block_flag = false;-->
+                <!--console.log('uuu' + user_input);-->
+                <!--if (user_input.length == 64) {-->
+                    <!--for (var i = 0; i < 7; i++) {-->
+                        <!--console.log('iii' + user_input[i]);-->
+                        <!--if (user_input[i] == '0') {-->
+                            <!--block_flag = true;-->
+                        <!--}-->
+                        <!--else {-->
+                            <!--block_flag = false;-->
+                            <!--break;-->
+                        <!--}-->
+                    <!--}-->
+                    <!--if (block_flag == true) {-->
+                        <!--var url = '/explorer/get_block_info/' + user_input;-->
+                        <!--$.get(url, function (data) {-->
+                            <!--console.log('ddd' + data);-->
+                            <!--if (data == 'no block available') {-->
+                                <!--$("#panel-danger").css('display', 'block');-->
+                            <!--}-->
+                            <!--else {-->
+                                <!--$('#data_container').empty().html(data).css('display', 'block');-->
+                                <!--$('#main_container').css('display', 'none');-->
+                                <!--$('#main_navbar').css('display', 'none');-->
+                            <!--}-->
+                        <!--});-->
+                    <!--}-->
+                    <!--else {-->
+                        <!--var url = '/explorer/get_transaction_info/' + user_input;-->
+                        <!--$.get(url, function (data) {-->
+                            <!--console.log('ddd' + data);-->
+                            <!--if (data == 'no tx available') {-->
+                                <!--$("#panel-danger").css('display', 'block');-->
+                            <!--}-->
+                            <!--else {-->
+                                <!--$('#data_container').empty().html(data).css('display', 'block');-->
+                                <!--$('#main_container').css('display', 'none');-->
+                                <!--$('#main_navbar').css('display', 'none');-->
+                            <!--}-->
+                        <!--});-->
+                    <!--}-->
+
+                <!--}-->
+                <!--else if (user_input.length == 33 || user_input.length === 34) {-->
+                    <!--var url = '/explorer/get_address_info/' + user_input;-->
+                    <!--$.get(url, function (data) {-->
+                        <!--console.log('ddd' + data);-->
+                        <!--if (data == 'no such address') {-->
+                            <!--$("#panel-danger").css('display', 'block');-->
+                        <!--}-->
+                        <!--else {-->
+                            <!--$('#data_container').empty().html(data).css('display', 'block');-->
+                            <!--$('#main_container').css('display', 'none');-->
+                            <!--$('#main_navbar').css('display', 'none');-->
+                        <!--}-->
+                    <!--});-->
+                <!--}-->
+
+                <!--else {-->
+                    <!--if (isPositiveInteger(user_input) == true) {-->
+                        <!--var url = '/explorer/get_block_hash/' + user_input;-->
+                        <!--$.get(url, function (data) {-->
+                            <!--console.log('ppp' + JSON.stringify(data));-->
+                            <!--if (data == 'no block available') {-->
+                                <!--$("#panel-danger").css('display', 'block');-->
+                            <!--}-->
+                            <!--else {-->
+                                <!--$('#data_container').empty().html(data).css('display', 'block');-->
+                                <!--$('#main_container').css('display', 'none');-->
+                                <!--$('#main_navbar').css('display', 'none');-->
+                            <!--}-->
+                        <!--});-->
+                    <!--}-->
+                    <!--else {-->
+                        <!--$("#panel-danger").css('display', 'block');-->
+                    <!--}-->
+                <!--}-->
+            <!--}-->
+        <!--});-->
+<!--</script>-->
