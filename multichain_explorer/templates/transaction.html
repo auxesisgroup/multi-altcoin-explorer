@@ -153,18 +153,18 @@
                             <div class="row">
                                 <div class="col-sm-5">
                                     <table class="table table-striped cf ticket_table transaction_table">
-                                        {% for input_address in context.vin_address %}
+                                        {% for input_address in context.vin_list_details %}
                                         <tr>
                                             <td><a href="/explorer/get_address_info/{{ input_address }}">{{
-                                                input_address
+                                                input_address.vin_address
                                                 }}</a>
                                             </td>
                                         <!--</tr>-->
-                                        {% endfor %}
-                                        {% for input_address in context.vin_inputs %}
+                                        <!--{% endfor %}-->
+                                        <!--{% for input_address in context.vin_inputs %}-->
                                         <!--<tr>-->
                                             <td>{{
-                                                input_address
+                                                input_address.vin_input
                                                 }}
                                             </td>
                                         </tr>
@@ -176,18 +176,18 @@
                                 </div>
                                 <div class="col-sm-5">
                                     <table class="table table-striped cf ticket_table transaction_table">
-                                        {% for output_address in context.vout_address %}
+                                        {% for output_address in context.vout_list_details %}
                                         <tr>
                                             <td><a href="/explorer/get_address_info/{{ output_address }}">{{
-                                                output_address
+                                                output_address.vout_address
                                                 }}</a>
                                             </td>
                                         <!--</tr>-->
-                                        {% endfor %}
-                                        {% for input_address in context.vout_outputs %}
+                                        <!--{% endfor %}-->
+                                        <!--{% for input_address in context.vout_outputs %}-->
                                         <!--<tr>-->
                                             <td>{{
-                                                input_address
+                                                output_address.vout_output
                                                 }}
                                             </td>
                                         </tr>

@@ -591,6 +591,15 @@ def get_transaction_details(txid):
         transaction_details['fee'] = transaction_fee
         # transaction_details['fee_per_byte'] = fee_per_byte
         print 'tt %s' %transaction_details
+        vin_list_details = []
+        vout_list_details = []
+        for i in range(0,len(vin_inputs)):
+            vin_list_details.append({'vin_address':vin_address[i],'vin_input':vin_inputs[i]})
+        for i in range(0,len(vout_outputs)):
+            vout_list_details.append({'vout_address':vout_address[i],'vout_output':vout_outputs[i]})
+        transaction_details['vin_list_details'] = vin_list_details
+        transaction_details['vout_list_details'] = vout_list_details
+
     return transaction_details
 
 
