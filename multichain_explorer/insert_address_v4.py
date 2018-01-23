@@ -6,7 +6,7 @@ import logging
 import datetime
 import sys
 
-db_conn = config.mongo_conn().multichain_explorer
+db_conn = config.mongo_conn().rajchain_explorer
 redis_conn = config.redis_conn()
 
 str_date = datetime.datetime.now().strftime('%Y%m%d')
@@ -41,14 +41,15 @@ if set_current_block_height_in_redis is True:
 else:
     logging.info('setting current blockheight in redis failed' % set_current_block_height_in_redis)
 
-crawled_block_height = int(redis_conn.get('multichain_crawled_block_height'))
+crawled_block_height = int(redis_conn.get('masschain_crawled_block_height'))
 logging.info('blocks crawled upto height::: %s' % crawled_block_height)
 
 
 def get_txs(block_height):
     # block_hash = getblockhash(config.testnet['btc_prefix'], config.payload, block_height)
     # block_details = getblock(config.testnet['btc_prefix'], config.payload, block_hash)
-    block_details = custom_rpc('getblock',[block_height])
+    block_hash = custom_rpc('getblockhash',[block_height])
+    block_details = custom_rpc('getblock',[block_hash])
     transactions_list = block_details['tx']
     logging.info('crawling block height:: %s, with transactions length:: %s, and transactions:: %s' % (
         block_height, len(transactions_list), transactions_list))
@@ -58,7 +59,7 @@ def get_txs(block_height):
 def address_crawler_1():
     for block_height in xrange(crawled_block_height, current_block_height + 1):
         block_start_time = exec_time()
-        redis_conn.set('multichain_crawled_block_height', block_height)
+        redis_conn.set('masschain_crawled_block_height', block_height)
         logging.debug('crawling block :: %s', block_height)
         transaction_list = get_txs(str(block_height))
         for transaction in transaction_list:
