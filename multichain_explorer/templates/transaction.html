@@ -146,7 +146,21 @@
                             <!--<tr>-->
                             <h5>No inputs(Newly generated coins)</h5>
                             <!--</tr>-->
+                            <table class="table table-striped cf ticket_table transaction_table">
+                                {% for output_address in context.vout_list_details %}
+                                    <tr>
+                                        <td><a href="/explorer/get_address_info/{{ output_address.vout_address }}">{{
+                                            output_address.vout_address
+                                            }}</a>
+                                        </td>
 
+                                        <td>{{
+                                            output_address.vout_output
+                                            }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
                             <!--</div>-->
                             {% else %}
 
