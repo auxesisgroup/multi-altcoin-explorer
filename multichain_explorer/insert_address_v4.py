@@ -48,7 +48,7 @@ logging.info('blocks crawled upto height::: %s' % crawled_block_height)
 def get_txs(block_height):
     # block_hash = getblockhash(config.testnet['btc_prefix'], config.payload, block_height)
     # block_details = getblock(config.testnet['btc_prefix'], config.payload, block_hash)
-    block_hash = custom_rpc('getblockhash',[block_height])
+    block_hash = custom_rpc('getblockhash',[int(block_height)])
     block_details = custom_rpc('getblock',[block_hash])
     transactions_list = block_details['tx']
     logging.info('crawling block height:: %s, with transactions length:: %s, and transactions:: %s' % (
