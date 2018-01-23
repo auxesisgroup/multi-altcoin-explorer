@@ -15,7 +15,7 @@ import config
 prod = False
 redis_conn = config.redis_conn()
 conf = {
-    'rpc_port': 7001,
+    'rpc_port': 10332,
     'user_name': 'Yourusername',
     'password': 'Yourpassword',
     'root': '1MNbWhUdFN2K7cTsehupp38zE79W6RvxfWprTf'
