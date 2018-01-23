@@ -155,7 +155,7 @@
                                     <table class="table table-striped cf ticket_table transaction_table">
                                         {% for input_address in context.vin_list_details %}
                                         <tr>
-                                            <td><a href="/explorer/get_address_info/{{ input_address }}">{{
+                                            <td><a href="/explorer/get_address_info/{{ input_address.vin_address }}">{{
                                                 input_address.vin_address
                                                 }}</a>
                                             </td>
@@ -178,7 +178,7 @@
                                     <table class="table table-striped cf ticket_table transaction_table">
                                         {% for output_address in context.vout_list_details %}
                                         <tr>
-                                            <td><a href="/explorer/get_address_info/{{ output_address }}">{{
+                                            <td><a href="/explorer/get_address_info/{{ output_address.vout_address }}">{{
                                                 output_address.vout_address
                                                 }}</a>
                                             </td>
