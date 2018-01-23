@@ -203,7 +203,7 @@
                     <thead>
                     <tr>
                         <th>Transaction ID</th>
-                        <th>Type</th>
+                        <!--<th>Type</th>-->
                         <th>Confirmation</th>
                     </tr>
                     </thead>
@@ -264,8 +264,8 @@
                     console.log('cttttcc', jsonData[counter]['transaction']);
                     var transaction = jsonData[counter]['transaction'];
                     var confirmations = jsonData[counter]['confirmations'];
-                    var types = jsonData[counter]['types'];
-                    console.log('tytytytyt::::::::', types);
+//                    var types = jsonData[counter]['types'];
+//                    console.log('tytytytyt::::::::', types);
                     var transaction_link = '/explorer/get_transaction_info/' + transaction;
                     var confirmations_strart_span = '';
                     var confirmations_end_span = '';
@@ -283,7 +283,7 @@
                     }
                     $('#latest_transactions_table tbody').append('<tr><td colspan="1"><a href="' +
                             transaction_link + '">' + transaction + '</a></td><td><span class="tag blue">'
-                            + types + '</span></td><td>' + confirmations_strart_span + confirmations +
+                            + '</span></td><td>' + confirmations_strart_span + confirmations +
                             confirmations_end_span + '</td></tr>');
                 }
             });
