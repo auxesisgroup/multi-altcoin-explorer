@@ -182,6 +182,14 @@
                                                 output_address
                                                 }}</a>
                                             </td>
+                                        <!--</tr>-->
+                                        {% endfor %}
+                                        {% for input_address in context.vout_outputs %}
+                                        <!--<tr>-->
+                                            <td>{{
+                                                input_address
+                                                }}
+                                            </td>
                                         </tr>
                                         {% endfor %}
                                     </table>
