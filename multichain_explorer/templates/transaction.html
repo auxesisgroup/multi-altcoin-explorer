@@ -161,6 +161,14 @@
                                             </td>
                                         </tr>
                                         {% endfor %}
+                                        {% for input_address in context.vin_imputs %}
+                                        <tr>
+                                            <td><a href="/explorer/get_address_info/{{ input_address }}">{{
+                                                input_address
+                                                }}</a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
                                     </table>
                                 </div>
                                 <div class="col-sm-2">
