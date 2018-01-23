@@ -11,7 +11,7 @@ redis_conn = config.redis_conn()
 
 str_date = datetime.datetime.now().strftime('%Y%m%d')
 logger = config.logger
-_file = logger['path'] + 'multichain_addressv4_%s' % str_date
+_file = logger['mempool']['path'] + 'multichain_addressv4_%s' % str_date
 logging.basicConfig(filename=_file,
                     filemode='a',
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
