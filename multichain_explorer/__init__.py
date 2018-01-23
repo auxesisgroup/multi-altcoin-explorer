@@ -65,6 +65,8 @@ def get_block_hash(height):
         # block_details = get_block_hash_model(height)
     # block_hash = getblockhash(config.testnet['btc_prefix'],config.payload,height)
     # res = getblock(config.testnet['btc_prefix'],config.payload,block_hash)
+    if int(height) == 0:
+        return render_template('block.html',context={'height':height,'no_data':True})
     res1 = custom_rpc('getblockhash',[int(height)])
     res = custom_rpc('getblock',[res1])
     if res:
