@@ -282,7 +282,8 @@
                         confirmations_end_span = ' Confirmations</span>'
                     }
                     $('#latest_transactions_table tbody').append('<tr><td colspan="1"><a href="' +
-                            transaction_link + '">' + transaction + '</a></td><td>' + confirmations_strart_span + confirmations +
+                            transaction_link + '">' + transaction + '</a></td><td><span class="tag blue">'
+                            + types + '</span></td><td>' + confirmations_strart_span + confirmations +
                             confirmations_end_span + '</td></tr>');
                 }
             });
