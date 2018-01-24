@@ -16,8 +16,8 @@ prod = False
 redis_conn = config.redis_conn()
 conf = {
     'rpc_port': 10332,
-    'user_name': 'Yourusername',
-    'password': 'Yourpassword',
+    'user_name': 'masscoinrpc',
+    'password': '9Gjz8kSHqpEafq6DUaisePcnf6jSXiXcDKiUsfvwbMvC',
     'root': '1MNbWhUdFN2K7cTsehupp38zE79W6RvxfWprTf'
 }
 
