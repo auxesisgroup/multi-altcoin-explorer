@@ -592,6 +592,8 @@ def get_transaction_details(txid):
         transaction_details['total_inputs'] = total_input
         transaction_details['total_outputs'] = total_output
         transaction_details['fee'] = transaction_fee
+        if transaction_fee < 0:
+            transaction_details['fee'] = 0.0
         # transaction_details['fee_per_byte'] = fee_per_byte
         print 'tt %s' %transaction_details
         vin_list_details = []
