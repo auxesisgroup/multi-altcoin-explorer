@@ -503,6 +503,7 @@ def get_transaction_details(txid):
     insert_dict['txid'] = transaction_detail['txid']
     if 'blockhash' in transaction_detail:
         insert_dict['blockhash'] = transaction_detail['blockhash']
+        insert_dict['block_number'] = custom_rpc('getblock',[insert_dict['blockhash']])['height']
     insert_dict['vin_address'] = vin_address
     insert_dict['vin_inputs'] = vin_inputs
     insert_dict['input_scripts'] = input_scripts

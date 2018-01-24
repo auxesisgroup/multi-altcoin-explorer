@@ -288,13 +288,13 @@
             else{
                 for(var i=0;i<vins.length;i++){
                     console.log('input address:::',i,vins[i]);
-                    $(input_address_div_id).append('<tr><td>' + vins[i] + '</td><td>' + vin_values[i] + '</td></tr>');
+                    $(input_address_div_id).append('<tr><td><a href="/explorer/get_address_info/' + vins[i] + '">' + vins[i] + '</td><td>' + vin_values[i] + '</td></tr>');
                 }
             }
             $(green_arrow_image_id).css('display','block');
             for(var i=0;i<vouts.length;i++){
                 console.log('output address:::',i,vouts[i]);
-                $(output_address_div_id).append('<tr><td>' + vouts[i] + '</td><td>' + vout_values[i] + '</td></tr>');
+                $(output_address_div_id).append('<tr><td><a href="/explorer/get_address_info/' + vouts[i] + '">' + vouts[i] + '</td><td>' + vout_values[i] + '</td></tr>');
             }
 //            for(var i=0;i<)
         });
