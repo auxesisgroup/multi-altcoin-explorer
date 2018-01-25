@@ -121,5 +121,10 @@ def address_crawler_1():
         logging.debug('time taken to crawl block: %s, with transactions: %s, is:::: %s' \
                       % (block_height, len(transaction_list), block_end_time))
 
+def crawl_address():
+    if redis_conn.exists('address_mutex') is not True:
+        redis_conn.set('address_mutex',True)
+        address_crawler_1()
+        redis_conn.delete('address_mutex')
 
-address_crawler_1()
+crawl_address()
