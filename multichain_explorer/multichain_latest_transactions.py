@@ -40,11 +40,11 @@ def insert_transactions_in_redis():
                 run_flag = False
             latest_transactions_list = custom_rpc('getrawmempool')
             logging.info('latest_mempool_list is::: %s, length is:: %s' %(latest_transactions_list,len(latest_transactions_list)))
+            redis_conn.set('rajchain_block_count',custom_rpc('getinfo')['blocks'])
             for latest_transaction in latest_transactions_list:
                 if redis_conn.sismember('rajchain_latest_transactions_set',latest_transaction):
                     print 'aaa'
                     logging.info('transactions ::: %s, already exists. Not adding' %latest_transaction)
-                    redis_conn.set('rajchain_block_count',custom_rpc('getinfo')['blocks'])
                 else:
                     redis_conn.sadd('rajchain_latest_transactions_set',latest_transaction)
                     print 'bbb'
@@ -53,7 +53,6 @@ def insert_transactions_in_redis():
                     insert_dict1['transaction'] = latest_transaction
                     # insert_dict1['types'] = get_types(latest_transaction)
                     logging.info('inserting transaction:: %s in mongo' %latest_transaction)
-                    redis_conn.set('rajchain_block_count',custom_rpc('getinfo')['blocks'])
                     db_conn.transaction_details.insert(insert_dict1)
             print 'sleeping for 8 secs'
             time.sleep(8)
