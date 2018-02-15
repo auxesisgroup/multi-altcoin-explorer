@@ -1,6 +1,7 @@
 __author__ = 'U.D.'
 
 from flask import Flask, request, jsonify, render_template, session, redirect
+from flask_cors import CORS
 # from flask_socketio import SocketIO,emit
 
 
@@ -21,6 +22,7 @@ from models import *
 
 
 app = Flask(__name__, template_folder='templates')
+CORS(app)
 # socketIo = SocketIO(app)
 redis_conn = config.redis_conn()
 
@@ -191,7 +193,7 @@ def api_get_block_hash(height):
         res['no_of_tx'] = len(res['tx'])
         res['output_total'] = get_output_total(res['tx'])
         print 'sss %s' %res
-        return render_template('block.html',context=res)
+        return jsonify(res)
     else:
         return 'no_block_available'
 
@@ -207,7 +209,7 @@ def api_get_block_info(block_hash):
         res['no_of_tx'] = len(res['tx'])
         res['output_total'] = get_output_total(res['tx'])
         print 'sss %s' %res
-        return render_template('block.html',context=res)
+        return jsonify(res)
     else:
         return 'no_block_available'
 
@@ -415,7 +417,7 @@ if staging is False:       # For local
             res['no_of_tx'] = len(res['tx'])
             res['output_total'] = get_output_total(res['tx'])
             print 'sss %s' %res
-            return render_template('block.html',context=res)
+            return jsonify(res)
         else:
             return 'no_block_available'
 
@@ -432,7 +434,7 @@ if staging is False:       # For local
             res['no_of_tx'] = len(res['tx'])
             res['output_total'] = get_output_total(res['tx'])
             print 'sss %s' %res
-            return render_template('block.html',context=res)
+            return jsonify(res)
         else:
             return 'no_block_available'
 
