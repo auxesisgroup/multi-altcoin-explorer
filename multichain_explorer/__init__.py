@@ -406,7 +406,7 @@ if staging is False:       # For local
     """  -----------------------------------------  EXPLORER Endpoints ------------------------------------------- """
     @app.route('/explorer/api_get_block_hash/<height>',methods=['GET'])
     def local_api_get_block_hash(height):
-        print '--------- getting block hash API---------'
+        print '--------- getting block hash API--------- %s' %height
         print '--------- getting block hash ---------'
         # block_details = get_block_hash_model(height)
         # block_hash = getblockhash(config.testnet['btc_prefix'],config.payload,height)
