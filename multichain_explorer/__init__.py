@@ -414,7 +414,10 @@ if staging is False:       # For local
         # block_details = get_block_hash_model(height)
         # block_hash = getblockhash(config.testnet['btc_prefix'],config.payload,height)
         # res = getblock(config.testnet['btc_prefix'],config.payload,block_hash)
-        res = custom_rpc('getblock',height)
+        if int(height) == 0:
+            return 'no_block_available'
+        res1 = custom_rpc('getblockhash',[int(height)])
+        res = custom_rpc('getblock',[res1])
         if res:
             res['block_time'] = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(res['time']))
             res['no_of_tx'] = len(res['tx'])
