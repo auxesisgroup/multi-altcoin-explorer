@@ -72,7 +72,7 @@ def custom_rpc(method, params=[]):
         # print 'response!!!', payload
         if response.status_code == 200:
             rpc_end_time = rpc_start_time.get_duration()
-            print 'time taken for rpc of method::: %s, is::: |%s' %(method,rpc_end_time)
+            # print 'time taken for rpc of method::: %s, is::: |%s' %(method,rpc_end_time)
             result = json.loads(response.text)
             return result['result']
         else:
