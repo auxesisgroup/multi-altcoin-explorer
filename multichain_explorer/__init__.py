@@ -193,7 +193,10 @@ def api_get_block_hash(height):
     if res:
         res['block_time'] = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(res['time']))
         res['no_of_tx'] = len(res['tx'])
-        res['output_total'] = get_output_total(res['tx'])
+        if int(height) == 0:
+            res['output_total'] = 32
+        else:
+            res['output_total'] = get_output_total(res['tx'])
         print 'sss %s' %res
         return jsonify(res)
     else:
@@ -421,7 +424,10 @@ if staging is False:       # For local
         if res:
             res['block_time'] = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(res['time']))
             res['no_of_tx'] = len(res['tx'])
-            res['output_total'] = get_output_total(res['tx'])
+            if int(height) == 0:
+                res['output_total'] = 32
+            else:
+                res['output_total'] = get_output_total(res['tx'])
             print 'sss %s' %res
             return jsonify(res)
         else:
