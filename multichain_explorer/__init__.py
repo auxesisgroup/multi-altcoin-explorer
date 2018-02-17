@@ -186,8 +186,8 @@ def api_get_block_hash(height):
     print '--------- getting block hash API---------'
     print '--------- getting block hash ---------'
         # block_details = get_block_hash_model(height)
-    if int(height) == 0:
-        return 'no_block_available'
+    # if int(height) == 0:
+    #     return 'no_block_available'
     res1 = custom_rpc('getblockhash',[int(height)])
     res = custom_rpc('getblock',[res1])
     if res:
@@ -414,8 +414,8 @@ if staging is False:       # For local
         # block_details = get_block_hash_model(height)
         # block_hash = getblockhash(config.testnet['btc_prefix'],config.payload,height)
         # res = getblock(config.testnet['btc_prefix'],config.payload,block_hash)
-        if int(height) == 0:
-            return 'no_block_available'
+        # if int(height) == 0:
+        #     return 'no_block_available'
         res1 = custom_rpc('getblockhash',[int(height)])
         res = custom_rpc('getblock',[res1])
         if res:
