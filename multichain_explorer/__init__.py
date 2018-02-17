@@ -157,7 +157,7 @@ def get_latest_transactions():
     transactions_list = db_conn.transaction_details.find({}).sort('_id',-1).limit(20)
     list_to_return = []
     for transaction in transactions_list:
-        print 'transaction is::: %s' %transaction
+        # print 'transaction is::: %s' %transaction
         transaction_dict = {}
         transaction_dict['transaction'] = transaction['transaction']
         current_block_count = redis_conn.get('rajchain_block_count')
@@ -387,7 +387,7 @@ if staging is False:       # For local
         transactions_list = db_conn.transaction_details.find({}).sort('_id',-1).limit(20)
         list_to_return = []
         for transaction in transactions_list:
-            print 'transaction is::: %s' %transaction
+            # print 'transaction is::: %s' %transaction
             transaction_dict = {}
             transaction_dict['transaction'] = transaction['transaction']
             current_block_count = redis_conn.get('rajchain_block_count')
