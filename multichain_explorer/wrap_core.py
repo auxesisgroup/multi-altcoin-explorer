@@ -15,7 +15,7 @@ import config
 prod = False
 redis_conn = config.redis_conn()
 conf = {
-    'rpc_port': 2333,
+    'rpc_port': 2332,
     'user_name': 'masscoinrpc',
     'password': '9Gjz8kSHqpEafq6DUaisePcnf6jSXiXcDKiUsfvwbMvC',
     'root': '1MNbWhUdFN2K7cTsehupp38zE79W6RvxfWprTf'
