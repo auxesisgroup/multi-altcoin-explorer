@@ -61,7 +61,7 @@ class exec_time():
 
 def custom_rpc(method, params=[]):
     try:
-        _prefix = 'http://' + conf['user_name'] + ':' + conf['password'] + '@localhost:' + str(conf['rpc_port']) + '/'
+        _prefix = 'http://' + conf['user_name'] + ':' + conf['password'] + '@165.227.116.240:' + str(conf['rpc_port']) + '/'
         payload = {"jsonrpc": 1, "id": "curltext"}
         print _prefix
         # print("Remote Procedural Call")
