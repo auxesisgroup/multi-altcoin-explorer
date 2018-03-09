@@ -212,7 +212,7 @@ def api_get_block_info(block_hash):
     # res = getblock(config.testnet['btc_prefix'],config.payload,block_hash)
     res = custom_rpc('getblock',[block_hash])
     print 'rererer %s' %res
-    
+
     if res:
         res['block_time'] = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(res['time']))
         res['no_of_tx'] = len(res['tx'])
@@ -449,7 +449,10 @@ if staging is False:       # For local
         if res:
             res['block_time'] = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(res['time']))
             res['no_of_tx'] = len(res['tx'])
-            res['output_total'] = get_output_total(res['tx'])
+            if block_hash == 'eee7f58d111ef0b25f7f6e8703d80ab6b51ca957170daea949e93e6467906889':
+                res['output_total'] = 32
+            else:
+                res['output_total'] = get_output_total(res['tx'])
             print 'sss %s' %res
             return jsonify(res)
         else:
