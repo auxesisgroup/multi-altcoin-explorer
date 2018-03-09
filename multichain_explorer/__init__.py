@@ -209,7 +209,8 @@ def api_get_block_info(block_hash):
     print '--------- getting block hash ---------'
         # block_details = get_block_hash_model(height)
     # block_hash = getblockhash(config.testnet['btc_prefix'],config.payload,height)
-    res = getblock(config.testnet['btc_prefix'],config.payload,block_hash)
+    # res = getblock(config.testnet['btc_prefix'],config.payload,block_hash)
+    res = custom_rpc('getblock',[block_hash])
     if res:
         res['block_time'] = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(res['time']))
         res['no_of_tx'] = len(res['tx'])
