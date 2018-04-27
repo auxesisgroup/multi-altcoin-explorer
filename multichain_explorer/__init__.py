@@ -245,6 +245,7 @@ def api_get_address_info(address):
             for transaction in transactions_list:
                 if transaction['spent'] is False:
                     balance += transaction['balance']
+                    print 'brbrbrbrbrbr======================================== %s'%balance
                 if transaction['txid'] not in transaction_list_to_send:
                     total_output += transaction['balance']
                     transaction_list_to_send.append(transaction['txid'])
