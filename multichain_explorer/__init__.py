@@ -480,6 +480,7 @@ if staging is False:       # For local
             for transaction in transactions_list:
                 if transaction['spent'] is False:# and transaction['txid'] not in transaction_list_to_send:
                     balance += transaction['balance']
+                    total_output += transaction['balance']
                 if transaction['txid'] not in transaction_list_to_send:
                     total_output += transaction['balance']
                     transaction_list_to_send.append(transaction['txid'])
