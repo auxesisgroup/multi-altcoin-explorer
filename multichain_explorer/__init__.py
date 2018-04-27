@@ -242,6 +242,7 @@ def api_get_address_info(address):
             # transactions_count = len(transactions_list)
             balance = 0.0
             total_output = 0.0
+            print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ %s' %balance
             for transaction in transactions_list:
                 print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ %s' %transaction
                 if transaction['spent'] is False:
