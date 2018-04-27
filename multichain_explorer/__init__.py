@@ -360,7 +360,7 @@ if staging is False:       # For local
             balance = 0.0
             total_output = 0.0
             for transaction in transactions_list:
-                if transaction['spent'] is False and transaction['txid'] not in transaction_list_to_send:
+                if transaction['spent'] is False:# and transaction['txid'] not in transaction_list_to_send:
                     balance += transaction['balance']
                     # transactions_count += 1
                 if transaction['txid'] not in transaction_list_to_send:
