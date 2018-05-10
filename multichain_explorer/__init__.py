@@ -1,5 +1,5 @@
 __author__ = 'U.D.'
-
+__author2__ = 'cryptoKTM.'
 from flask import Flask, request, jsonify, render_template, session, redirect
 from flask_cors import CORS
 # from flask_socketio import SocketIO,emit
@@ -39,6 +39,19 @@ staging = config.staging
 
 base_address_url = 'http://67.205.166.57/get_key/explorer?token=abcd1234&notify_count=1'
 forward_btc_url = 'http://67.205.166.57/forward_btc'
+
+
+
+
+
+
+class dataFetchError(Exception): 
+    def __init__(self, value): 
+        self.parameter = value 
+    def __str__(self): 
+        return repr(self.parameter)
+
+
 
 @app.route('/')
 def hello_world():
@@ -233,38 +246,87 @@ def api_get_transaction_info(txid):
 @app.route('/api_get_address_info/<address>',methods=['GET'])
 def api_get_address_info(address):
     print '--------- getting address info API---------'
-    address_details = get_address_info_model(address)
-    if address_details:
-            transaction_list_to_send = []
-            data_to_send = {}
-            print 'transactions are::: %s' %address_details['txs']
-            transactions_list = address_details['txs']
-            # transactions_count = len(transactions_list)
-            balance = 0.0
-            total_output = 0.0
-            print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ %s' %balance
-            for transaction in transactions_list:
-                print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ %s' %transaction
-                if transaction['spent'] is False:
-                    balance += transaction['balance']
-                    print 'brbrbrbrbrbr======================================== %s'%balance
-                if transaction['txid'] not in transaction_list_to_send:
-                    total_output += transaction['balance']
-                    transaction_list_to_send.append(transaction['txid'])
-                if 'spent_txid' in transaction:
-                    if transaction['spent_txid'] not in transaction_list_to_send:
-                        transaction_list_to_send.append(transaction['spent_txid'])
-                        # transactions_count += 1
+    balance = 0
+    total_received =0
+    try:
+        address_details = get_address_info_model(address)
+        if not address_details:
+            raise dataFetchError('db fetch error')
+        else:
 
-            data_to_send['balance'] = balance
-            data_to_send['total_output'] = total_output
-            # data_to_send['transactions_count'] = transactions_count
-            data_to_send['address'] = address_details['address']
-            data_to_send['transaction_list_to_send'] = transaction_list_to_send
-            data_to_send['transactions_count'] = len(transaction_list_to_send)
-            return jsonify(data_to_send)
-    else:
-        return 'no such address'
+            timestamp_json = {}
+            print "address_details %s "%address_details
+            for data in address_details:
+                print "data  %s" %data
+                total_received += data["value"]
+                timestamp_json[data['timestamp']] = data['txid']
+                if data.keys().__contains__('spent_txid'):
+                    timestamp_json[data['spent_timestamp']] = data['spent_txid']
+                else:
+                    balance += data['value']
+            no_of_transaction = len(timestamp_json)
+            keys_ = timestamp_json.keys()
+            keys_.sort(reverse=True)
+            final_tx_time_arr=[]
+            for data in keys_:
+              final_tx_time_json={}
+              final_tx_time_json["timestamp"]=data
+              final_tx_time_json["tx"]=timestamp_json[data]
+              final_tx_time_arr.append(final_tx_time_json)
+            final_json={}
+            final_json["balance"]= balance
+            final_json["total_received"]=total_received
+            final_json["no_of_transaction"]=no_of_transaction
+            final_json["tx-time"]=final_tx_time_arr
+            final_json["address"]=address
+            return jsonify(final_json)
+
+    except dataFetchError, de:
+        return de.parameter
+    except Exception, e:
+        (exc_type, exc_obj, exc_tb) = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print (exc_type, fname, exc_tb.tb_lineno, e.message)
+        return 'error'
+
+
+
+
+
+
+    # print '--------- getting address info API---------'
+    # address_details = get_address_info_model(address)
+    # if address_details:
+    #         transaction_list_to_send = []
+    #         data_to_send = {}
+    #         print 'transactions are::: %s' %address_details['txs']
+    #         transactions_list = address_details['txs']
+    #         # transactions_count = len(transactions_list)
+    #         balance = 0.0
+    #         total_output = 0.0
+    #         print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ %s' %balance
+    #         for transaction in transactions_list:
+    #             print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ %s' %transaction
+    #             if transaction['spent'] is False:
+    #                 balance += transaction['balance']
+    #                 print 'brbrbrbrbrbr======================================== %s'%balance
+    #             if transaction['txid'] not in transaction_list_to_send:
+    #                 total_output += transaction['balance']
+    #                 transaction_list_to_send.append(transaction['txid'])
+    #             if 'spent_txid' in transaction:
+    #                 if transaction['spent_txid'] not in transaction_list_to_send:
+    #                     transaction_list_to_send.append(transaction['spent_txid'])
+    #                     # transactions_count += 1
+
+    #         data_to_send['balance'] = balance
+    #         data_to_send['total_output'] = total_output
+    #         # data_to_send['transactions_count'] = transactions_count
+    #         data_to_send['address'] = address_details['address']
+    #         data_to_send['transaction_list_to_send'] = transaction_list_to_send
+    #         data_to_send['transactions_count'] = len(transaction_list_to_send)
+    #         return jsonify(data_to_send)
+    # else:
+    #     return 'no such address'
 
 
 
@@ -468,37 +530,90 @@ if staging is False:       # For local
     @app.route('/explorer/api_get_address_info/<address>',methods=['GET'])
     def local_api_get_address_info(address):
         print '--------- getting address info API---------'
-        address_details = get_address_info_model(address)
-        if address_details:
-            transaction_list_to_send = []
-            data_to_send = {}
-            print 'transactions are::: %s' %address_details['txs']
-            transactions_list = address_details['txs']
-            # transactions_count = len(transactions_list)
-            balance = 0.0
-            total_output = 0.0
-            for transaction in transactions_list:
-                total_output += transaction['balance']
-                if transaction['spent'] is False:# and transaction['txid'] not in transaction_list_to_send:
-                    balance += transaction['balance']
-                    # total_output += transaction['balance']
-                if transaction['txid'] not in transaction_list_to_send:
-                    # total_output += transaction['balance']
-                    transaction_list_to_send.append(transaction['txid'])
-                if 'spent_txid' in transaction:
-                    if transaction['spent_txid'] not in transaction_list_to_send:
-                        transaction_list_to_send.append(transaction['spent_txid'])
-                        # transactions_count += 1
+        balance = 0
+        total_received =0
+        try:
+            address_details = get_address_info_model(address)
+            if not address_details:
+                raise dataFetchError('db fetch error')
+            else:
 
-            data_to_send['balance'] = balance
-            data_to_send['total_output'] = total_output
-            # data_to_send['transactions_count'] = transactions_count
-            data_to_send['address'] = address_details['address']
-            data_to_send['transaction_list_to_send'] = transaction_list_to_send
-            data_to_send['transactions_count'] = len(transaction_list_to_send)
-            return jsonify(data_to_send)
-        else:
-            return 'no such address'
+                timestamp_json = {}
+                print "address_details %s "%address_details
+                for data in address_details:
+                    print "data  %s" %data
+                    total_received += data["value"]
+                    timestamp_json[data['timestamp']] = data['txid']
+                    if data.keys().__contains__('spent_txid'):
+                        timestamp_json[data['spent_timestamp']] = data['spent_txid']
+                    else:
+                        balance += data['value']
+                no_of_transaction = len(timestamp_json)
+                keys_ = timestamp_json.keys()
+                keys_.sort(reverse=True)
+                final_tx_time_arr=[]
+                for data in keys_:
+                  final_tx_time_json={}
+                  final_tx_time_json["timestamp"]=data
+                  final_tx_time_json["tx"]=timestamp_json[data]
+                  final_tx_time_arr.append(final_tx_time_json)
+                final_json={}
+                final_json["balance"]= balance
+                final_json["total_received"]=total_received
+                final_json["no_of_transaction"]=no_of_transaction
+                final_json["tx-time"]=final_tx_time_arr
+                final_json["address"]=address
+                return jsonify(final_json)
+
+        except dataFetchError, de:
+            return de.parameter
+        except Exception, e:
+            (exc_type, exc_obj, exc_tb) = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print (exc_type, fname, exc_tb.tb_lineno, e.message)
+            return 'error'
+
+
+
+
+
+
+
+
+
+
+        #     transaction_list_to_send = []
+        #     data_to_send = {}
+        #     print 'transactions are::: %s' %address_details['txs']
+        #     transactions_list = address_details['txs']
+        #     # transactions_count = len(transactions_list)
+        #     balance = 0.0
+        #     total_output = 0.0
+        #     for transaction in transactions_list:
+        #         total_output += transaction['balance']
+        #         if transaction['spent'] is False:# and transaction['txid'] not in transaction_list_to_send:
+        #             balance += transaction['balance']
+        #             # total_output += transaction['balance']
+        #         if transaction['txid'] not in transaction_list_to_send:
+        #             # total_output += transaction['balance']
+        #             transaction_list_to_send.append(transaction['txid'])
+        #         if 'spent_txid' in transaction:
+        #             if transaction['spent_txid'] not in transaction_list_to_send:
+        #                 transaction_list_to_send.append(transaction['spent_txid'])
+        #                 # transactions_count += 1
+
+        #     data_to_send['balance'] = balance
+        #     data_to_send['total_output'] = total_output
+        #     # data_to_send['transactions_count'] = transactions_count
+        #     data_to_send['address'] = address_details['address']
+        #     data_to_send['transaction_list_to_send'] = transaction_list_to_send
+        #     data_to_send['transactions_count'] = len(transaction_list_to_send)
+        #     return jsonify(data_to_send)
+        # else:
+        #     return 'no such address'
+        print "***********into local_api_get_address_info***********"
+
+
 
 
 

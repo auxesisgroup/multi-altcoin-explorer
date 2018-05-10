@@ -19,7 +19,7 @@ def get_transaction_info_model(txid):
     return res
 
 def get_address_info_model(address):
-    res = db_conn.address_details_v3.find_one({'address':address},{'_id':0})
+    res = db_conn.address_details_v5.find({'address':address},{'_id':0})
     return res
 
 def latest_nextblock_height_model():

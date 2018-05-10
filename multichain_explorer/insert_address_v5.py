@@ -50,6 +50,7 @@ def get_block_count():
 
 def gettxid(block_no):
 	# print"into gettxid"
+	print "crawling block no block_no_ %s" %block_no	
 	payload["method"]="getblockhash"
 	payload["params"]=[block_no]
 	resp = requests.post(url,json.dumps(payload))
@@ -67,7 +68,6 @@ def gettxid(block_no):
 
 def add_from_txid(txid,block_no_):
 	try:
-		print "crawling block no block_no_ %s" %block_no_
 		vin_addresses = []     
 		vout_addresses=[]
 		payload["method"]="getrawtransaction"
@@ -128,7 +128,9 @@ def add_from_txid(txid,block_no_):
 
 
 		# print vout_addresses
-		return {"vout_add":vout_addresses,"vin_add":vin_addresses}
+		if vout_addresses and vin_addresses:
+			return {"vout_add":vout_addresses,"vin_add":vin_addresses}
+
 
 	except Exception as e:
 
@@ -138,21 +140,27 @@ def add_from_txid(txid,block_no_):
 
 
 try:
-
-	crawled_block = 62722  #redis connection
-	block_count = 1500000#get_block_count()
+	crawled_block = int(redis_conn.get('crawled_block'))
+	# crawled_block += 1  #is the no of block that is going to get crawled now
+	block_count = int(get_block_count())
 	final={}
-	while(crawled_block < block_count):
-		tx_array=gettxid(crawled_block)
+
+	while((crawled_block+1) < block_count):
+		# print 
+		tx_array=gettxid((crawled_block+1))
 		for data in tx_array:
 			txid = str(data)
-			a = add_from_txid(txid,crawled_block)
-			final[data]=a
-
-		final["block_no"]=crawled_block
+			a = add_from_txid(txid,(crawled_block+1))
+			# if not a:
+			# 	raise wrapcoreException('error on ')
+		# final["block_no"]=crawled_block
+		
+		redis_conn.set('crawled_block',(crawled_block+1))
+		crawled_block = int(redis_conn.get('crawled_block'))
+		block_count = int(get_block_count())
 		# print final
 		# block_count+=1
-		crawled_block +=1
+		# crawled_block +=1
 except wrapcoreException as we:
 	print we.parameter
 except Exception as e:
@@ -160,6 +168,3 @@ except Exception as e:
 	fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1] 
 	print "exception" 
 	print(exc_type, fname, exc_tb.tb_lineno, e.message)
-
-
-	a = 
