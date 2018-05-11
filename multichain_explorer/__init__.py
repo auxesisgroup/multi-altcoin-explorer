@@ -269,7 +269,7 @@ def api_get_address_info(address):
             keys_.sort(reverse=True)
             final_tx_time_arr=[]
             for data in keys_:
-              final_tx_time_json={}
+              final_tx_time_json={} 
               final_tx_time_json["timestamp"]=data
               final_tx_time_json["tx"]=timestamp_json[data]
               final_tx_time_arr.append(final_tx_time_json)
@@ -277,7 +277,7 @@ def api_get_address_info(address):
             final_json["balance"]= balance
             final_json["total_received"]=total_received
             final_json["no_of_transaction"]=no_of_transaction
-            final_json["tx-time"]=final_tx_time_arr
+            final_json["tx_time"]=final_tx_time_arr
             final_json["address"]=address
             return jsonify(final_json)
 
@@ -561,7 +561,7 @@ if staging is False:       # For local
                 final_json["balance"]= balance
                 final_json["total_received"]=total_received
                 final_json["no_of_transaction"]=no_of_transaction
-                final_json["tx-time"]=final_tx_time_arr
+                final_json["tx_time"]=final_tx_time_arr
                 final_json["address"]=address
                 return jsonify(final_json)
 
