@@ -17,8 +17,17 @@ db_conn = config.mongo_conn().rajchain_explorer
 redis_conn = config.redis_conn()
 
 
+conf = {
+    'rpc_port': 2332,
+    'user_name': 'masscoinrpc',
+    'password': '9Gjz8kSHqpEafq6DUaisePcnf6jSXiXcDKiUsfvwbMvC',
+    'root': '1MNbWhUdFN2K7cTsehupp38zE79W6RvxfWprTf'
+}
 
-url="http://asd:asdf@localhost:2332"
+
+url = 'http://' + conf['user_name'] + ':' + conf['password'] + '@165.227.116.240:' + str(conf['rpc_port']) + '/'
+
+# url="http://asd:asdf@localhost:2332"
 payload={}
 payload = {"jsonrpc":1,"id":"curltext"}
 
