@@ -291,6 +291,13 @@ def api_get_address_info(address):
 
 
 
+@app.route('/get_val_for_masssPay/',methods=['POST'])
+def get_val_for_masssPay():
+    print '**********************************************************************************************************************************************************'
+    a= request.get_json()
+    print type(a)
+    return jsonify({"data":"ok"})
+
 
 
 
@@ -755,13 +762,6 @@ def get_output_total(tx_list):
     print output_total
     return output_total
 
-
-@app.route('/get_val_for_masssPay/',methods=['GET'])
-def get_val_for_masssPay():
-    print '--------- testing::::::::: '
-    a= request.get_json()
-    print type(a)
-    return jsonify({"data":"ok"})
 
 
 if __name__ == '__main__':
