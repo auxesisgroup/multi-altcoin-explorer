@@ -756,7 +756,7 @@ def get_output_total(tx_list):
     return output_total
 
 
-@app.route('/get_val_for_masssPay/',methods=['POST'])
+@app.route('/get_val_for_masssPay/',methods=['GET'])
 def get_val_for_masssPay():
     print '--------- testing::::::::: '
     a= request.get_json()
