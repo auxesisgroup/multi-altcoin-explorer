@@ -756,6 +756,13 @@ def get_output_total(tx_list):
     return output_total
 
 
+@app.route('/get_val_for_masssPay/',methods=['POST'])
+def get_val_for_masssPay():
+    print '--------- testing::::::::: '
+    a= request.get_json()
+    print type(a)
+    return jsonify({"data":"ok"})
+
 
 if __name__ == '__main__':
     print "Running blockchain_explorer API"
