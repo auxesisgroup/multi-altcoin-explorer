@@ -291,7 +291,7 @@ def api_get_address_info(address):
 
 
 
-@app.route('/get_val_for_masssPay/',methods=['POST'])
+@app.route('/get_val_for_masssPay',methods=['POST'])
 def get_val_for_masssPay():
     print '**********************************************************************************************************************************************************'
     a= request.get_json()
