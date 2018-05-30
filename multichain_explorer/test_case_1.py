@@ -121,28 +121,8 @@ def parallel_transactions():
 
 
 
-# consecutive_transactions()
+
 parallel_transactions()
 time.sleep(5000)
 
-#
-#
-# def _timings():
-#     # create key pairs timing
-#     st = time.time()
-#     keypair = custom_rpc('createkeypairs')
-#     et = time.time()
-#     print et, st
-#     print 'createkeypair time ', et - st
-#     # grant timing
-#     st = time.time()
-#     grant = custom_rpc('grant', [keypair['address'], 'send,receive'])
-#     et = time.time()
-#     print et, st
-#     print 'grant time ', et - st
-#     #issuemmore time
-#     st = time.time()
-#     grant = custom_rpc('issuemore', [keypair['address'], 'Auxtoken', 10])
-#     et = time.time()
-#     print et, st
-#     print 'issue time ', et - st
+
