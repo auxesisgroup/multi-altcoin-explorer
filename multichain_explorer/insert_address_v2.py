@@ -75,3 +75,7 @@ for block in block_list:
                                     )
                             print '------ removing transaction:: %s from unspent_tx ----' % vin_txid
                             db_conn.unspent_tx.remove({'tx': vin_txid})
+
+
+
+#commented out
