@@ -6,9 +6,7 @@ import time
 db_conn = config.mongo_conn().explorer
 redis_conn = config.redis_conn()
 
-
-# def exec_time():
-#     start_time = time.time()
+t_time = time.time()
 
 class exec_time():
     def __init__(self):
@@ -17,17 +15,6 @@ class exec_time():
         self.end_epoch = time.time()
         duration = self.end_epoch - self.start_epoch
         return duration
-
-# def get_tx_list():
-#     block_list = db_conn.block_details.find({"height": {"$ne": 0}}, no_cursor_timeout=True)
-#     for block in block_list:
-#         yield block['tx']
-#
-#
-# def get_tx():
-#     for tx_list in get_tx_list():
-#         for tx in tx_list:
-#             yield tx
 
 block_list = db_conn.block_details.find({"height": {"$ne": 0}}, no_cursor_timeout=True)
 def address_crawler_1():
