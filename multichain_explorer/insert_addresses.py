@@ -1,5 +1,5 @@
 __author__ = 'udasi'
-
+_author_ = 'cryptoKTM
 import config
 from wrap_core import *
 
