@@ -57,15 +57,15 @@ for block in block_list:
                             if inner_vout.__contains__('scriptPubKey'):
                                 if 'addresses' in inner_vout['scriptPubKey']:
                                     inner_address = inner_vout['scriptPubKey']['addresses']
-                                    # res = db_conn.address_details_v2.find_one({'address': inner_address})
-                                    # if res:
-                                    #     new_balance = res['balance'] - balance
-                                    # else:
-                                    #     new_balance = balance
-                                    # print '----- updating vin_list of address %s, appending transaction:: %s, new balance:: %s' % (
+
+
+
+
+
+
                                     #     inner_address, vin_txid, new_balance)
                                     # db_conn.address_details_v2.update({'address': inner_address},
-                                    # {"$push": {'vin_list': vin_txid},
+
                                     #                                 "$set": {"balance": balance}},upsert=True)
                                     print 'updating vin list:::::: %s' %vin_push_str
                                     db_conn.address_details_v2.find_and_modify(
