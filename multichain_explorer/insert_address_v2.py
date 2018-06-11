@@ -23,7 +23,7 @@ for block in block_list:
                     balance = vout['value']
                     index = vout['n']
                     push_str = '%s,%s,%s' % (transaction, balance, index)
-                    # res = db_conn.address_details_v2.find_one({'address': address})
+                    
                     # if res:
                     # new_balance = res['balance'] + balance
                     # else:
