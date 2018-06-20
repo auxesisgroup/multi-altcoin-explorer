@@ -24,11 +24,7 @@ for block in block_list:
                     index = vout['n']
                     push_str = '%s,%s,%s' % (transaction, balance, index)
                     
-                    # if res:
-                    # new_balance = res['balance'] + balance
-                    # else:
-                    #     new_balance = balance
-                    # print '----- updating vout_list of address %s, appending transaction:: %s, new balance:: %s' % (
+
                         # address, transaction, new_balance)
                     # db_conn.address_details_v2.update({'address': address},
                     #                                {"$push": {"vout_list": transaction},
