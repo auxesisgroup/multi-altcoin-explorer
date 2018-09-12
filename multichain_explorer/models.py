@@ -1,3 +1,5 @@
+__author__ = "parin"
+
 import config
 import hashlib
 import time
