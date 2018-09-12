@@ -1,4 +1,4 @@
-__author__ = "parin"
+_sdf_author__ = "parin"
 
 import config
 import hashlib
