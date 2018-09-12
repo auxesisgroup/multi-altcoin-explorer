@@ -1,4 +1,5 @@
 __author__ = 'ud'
+abc= 123
 import config
 from wrap_core import *
 
